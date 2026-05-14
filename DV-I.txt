@@ -1,0 +1,42 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+ds=pd.read_csv("Titanic.csv")
+ds
+
+ds.isnull().sum()
+
+sns.catplot(x="sex", hue="survived", kind="count", data=ds)
+
+plt.figure(figsize=(10,6))
+sns.histplot(titanic['fare'], bins=30, kde=True)
+
+plt.title("Distribution of Titanic Ticket Fare")
+plt.xlabel("Fare")
+plt.ylabel("Frequency")
+plt.show()
+
+group = ds.groupby(['pclass', 'survived'])
+pclass_survived = group.size().unstack()
+sns.heatmap(pclass_survived, annot = True, fmt ="d")
+
+sns.violinplot(x ="sex", y ="age", hue ="survived",data =ds, split = True)
+
+
+titanic['fare_range'] = pd.qcut(titanic['fare'], 4)
+sns.barplot(x ='fare_range', y ='survived',data = titanic)
+
+print(titanic.shape)
+print(titanic.head())
+
+sns.distplot(dataset['fare'])
+
+sns.distplot(dataset['fare'], kde=False)
+
+sns.distplot(dataset['fare'], kde=False, bins=10)
+
+sns.jointplot(x='age', y='fare', data=titanic)
+
+sns.jointplot(x='age', y='fare', data=dataset, kind='hex')
