@@ -1,0 +1,35 @@
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+ds = pd.read_csv("iris.csv")
+
+ds.head()
+ds.describe()
+ds.info()
+
+ds.hist(bins=20,figsize=(10,10))
+plt.suptitle('iris histo')
+plt.show()
+
+sns.pairplot(ds)
+plt.show()
+
+plt.figure(figsize=(10,10))
+sns.boxplot(data=ds)
+plt.title('boxplot of iris feature')
+plt.show()
+
+sns.boxplot(x='species',y = 'sepal_width',data=ds)
+plt.show()
+
+ds.hist(figsize=(10,10))
+plt.show()
+
+fig,axes=plt.subplots(2,2,figsize=(10,10))
+sns.boxplot(x='species',y='sepal_width',data=ds,ax=axes[0,0])
+sns.boxplot(x='species',y='sepal_length',data=ds,ax=axes[0,1])
+sns.boxplot(x='species',y='petal_width',data=ds,ax=axes[1,0])
+sns.boxplot(x='species',y='petal_length',data=ds,ax=axes[1,1])
+
