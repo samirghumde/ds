@@ -1,0 +1,36 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+ds = sns.load_dataset('titanic')
+
+ds.head()
+ds = ds.dropna()
+
+
+ds = ds[["survived","pclass","age","sex","sibsp","parch","fare"]]
+
+sns.pairplot(ds)
+
+sns.rugplot(ds['fare'])
+
+sns.barplot(x='sex', y='age', data=ds)
+
+sns.countplot(x='sex', data=d1)
+
+sns.boxplot(x='sex', y='age', data=d1)
+
+sns.boxplot(x='sex', y='age', data=d1, hue="survived")
+
+sns.violinplot(x='sex', y='age', data=ds)
+sns.violinplot(x='sex', y='age', data=ds, hue='survived')
+sns.violinplot(x='sex', y='age', data=ds, hue='survived', split=True)
+
+sns.stripplot(x='sex', y='age', data=ds)
+sns.stripplot(x='sex', y='age', data=ds, jitter=True)
+sns.stripplot(x='sex', y='age', data=ds, jitter=True, hue='survived')
+
+sns.swarmplot(x='sex', y='age', data=d1)
+sns.swarmplot(x='sex', y='age', data=ds, hue='survived')
