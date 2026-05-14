@@ -39,10 +39,10 @@ error_rate = 1 - accuracy
 print("Error Rate:", error_rate)
 
 
-TP = cm[0][0]
+TN = cm[0][0]
 FP = cm[0][1]
 FN = cm[1][0]
-TN = cm[1][1]
+TP = cm[1][1]
 
 print("TP:", TP)
 print("FP:", FP)
