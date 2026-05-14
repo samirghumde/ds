@@ -1,0 +1,58 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import confusion_matrix, accuracy_score
+
+
+data = pd.read_csv("iris.csv")
+
+
+X = data.drop("species", axis=1)
+y = data["species"]
+
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+
+model = GaussianNB()
+
+
+model.fit(X_train, y_train)
+
+
+y_pred = model.predict(X_test)
+
+
+cm = confusion_matrix(y_test, y_pred)
+
+print("Confusion Matrix:")
+print(cm)
+
+
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy:", accuracy)
+
+
+error_rate = 1 - accuracy
+print("Error Rate:", error_rate)
+
+
+TP = cm[0][0]
+FP = cm[0][1]
+FN = cm[1][0]
+TN = cm[1][1]
+
+print("TP:", TP)
+print("FP:", FP)
+print("FN:", FN)
+print("TN:", TN)
+
+
+precision = TP / (TP + FP)
+print("Precision:", precision)
+
+
+recall = TP / (TP + FN)
+print("Recall:", recall)
