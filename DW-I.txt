@@ -1,0 +1,20 @@
+import pandas as pd
+import numpy as np
+import seaborn as cns
+
+ds = cns.load_dataset('titanic')
+
+print(ds.head())
+print(ds.info)
+print(ds.describe())
+print(ds.shape)
+print(ds.isnull().sum())
+print(ds.dtypes)
+
+ds['age']=ds['age'].fillna(ds['age'].mean())
+print(ds.dtypes)
+
+ds['age']=ds['age'].astype(int)
+ds['fare_normalised']=((ds['fare']-ds['fare'].min())/(ds['fare'].max()-ds['fare'].min()))
+
+ds['sex']=ds['sex'].map({'male':0,'female':1})
