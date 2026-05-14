@@ -1,0 +1,63 @@
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+
+data = {
+    'Name': ['Amit', 'Riya', 'Karan', 'Sneha', 'Rahul'],
+    'Maths': [85, 90, np.nan, 200, 70],
+    'Science': [78, 88, 92, 85, np.nan],
+    'English': [80, 85, 90, 87, 75]
+}
+
+
+df = pd.DataFrame(data)
+
+print(df)
+
+
+print("\nMissing Values:")
+print(df.isnull().sum())
+
+# STEP 2 : Handle Missing Values using Mean
+
+df['Maths'].fillna(df['Maths'].mean(), inplace=True)
+df['Science'].fillna(df['Science'].mean(), inplace=True)
+print("\nDataset After Handling Missing Values:")
+print(df)
+
+# STEP 3 : Detect Outliers using Boxplot
+
+plt.figure(figsize=(6,4))
+sns.boxplot(x=df['Maths'])
+plt.title("Boxplot for Maths")
+plt.show()
+
+
+# STEP 4 : Remove Outliers using IQR Method
+
+Q1 = df['Maths'].quantile(0.25)
+Q3 = df['Maths'].quantile(0.75)
+IQR = Q3 - Q1
+lower = Q1 - 1.5 * IQR
+upper = Q3 + 1.5 * IQR
+median = df['Maths'].median()
+df['Maths'] = np.where(
+        (df['Maths'] < lower) | (df['Maths'] > upper),
+            median,
+                df['Maths']
+)
+print("\nDataset After Removing Outliers:")
+print(df)
+
+
+
+# STEP 5 : Data Transformation using StandardScaler
+
+scaler = StandardScaler()
+df[['Maths', 'Science', 'English']] = scaler.fit_transform(
+    df[['Maths', 'Science', 'English']]
+)
+print("\nDataset After Transformation:")
+print(df)
